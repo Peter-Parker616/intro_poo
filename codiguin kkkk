@@ -1,0 +1,35 @@
+class Funcionario:
+    def __init__(self, nome, cargo, salario):
+        self.nome = nome
+        self.cargo = cargo
+        self.__salario = salario  # Atributo privado para o salário
+
+    def obter_salario(self):
+        return self.__salario
+
+    def aplicar_aumento(self, percentual):
+        if percentual > 0:
+            self.__salario += self.__salario * (percentual / 100)
+        else:
+            print("O percentual de aumento deve ser positivo.")
+
+class Gerente(Funcionario):
+    def __init__(self, nome, cargo, salario, bonus):
+        super().__init__(nome, cargo, salario)
+        self.bonus = bonus
+
+    def obter_salario(self):
+        # Salário com o bônus aplicado
+        return super().obter_salario() + self.bonus
+
+# Código de teste
+funcionario = Funcionario("João", "Analista", 3000)
+gerente = Gerente("Maria", "Gerente de Projetos", 6000, 1500)
+
+print(f"Salário do {funcionario.nome} antes do aumento: R${funcionario.obter_salario():.2f}")
+funcionario.aplicar_aumento(10)
+print(f"Salário do {funcionario.nome} após aumento de 10%: R${funcionario.obter_salario():.2f}")
+
+print(f"Salário da {gerente.nome} antes do aumento e bônus: R${gerente.obter_salario():.2f}")
+gerente.aplicar_aumento(10)
+print(f"Salário da {gerente.nome} após aumento de 10% e com bônus: R${gerente.obter_salario():.2f}")
